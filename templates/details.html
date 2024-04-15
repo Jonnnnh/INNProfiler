@@ -10,12 +10,13 @@
         {% if company_info is string %}
             <p>{{ company_info }}</p>
         {% else %}
-            <p>Название компании: {{ company_info.get('company_name', 'Название не указано') }}</p>
-            <p>ИНН: {{ company_info.get('inn', 'ИНН не указан') }}</p>
+           <p>Название компании: {{ company_info.get('company_name', 'Название не указано') }}</p>
+            <p>ИНН/КПП: {{ company_info.get('inn_kpp', 'ИНН/КПП не указан') }}</p>
             <p>ОГРН: {{ company_info.get('ogrn', 'ОГРН не указан') }}</p>
             <p>Дата регистрации: {{ company_info.get('registration_date', 'Дата регистрации не указана') }}</p>
-            <p>Руководитель: {{ company_info.get('leader', 'Руководитель не указан') }}</p>
+            <p>Руководитель: {{ company_info.get('leader_name', 'Руководитель не указан') }}</p>
             <p>Юридический адрес: {{ company_info.get('legal_address', 'Юридический адрес не указан') }}</p>
+            <p>Уставной капитал: {{ company_info.get('authorized_capital', 'Уставной капитал не указан') }}</p>
         {% endif %}
     {% else %}
         <p>Информация о компании не найдена.</p>
