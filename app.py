@@ -24,26 +24,34 @@ def show_details(inn):
 
 def get_company_details(inn):
     url = f"https://www.rusprofile.ru/search?query={inn}"
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
     response = requests.get(url, headers=headers)
     if response.status_code == 200:
         soup = BeautifulSoup(response.text, 'html.parser')
         company_link = soup.find('a', class_='search-result__header-link')
+
         if company_link:
             company_url = "https://www.rusprofile.ru" + company_link['href']
             company_response = requests.get(company_url, headers=headers)
             company_soup = BeautifulSoup(company_response.text, 'html.parser')
             name = company_soup.find('div', class_='company-name').get_text(strip=True) if company_soup.find('div', class_='company-name') else "Название не найдено"
+
         else:
             title_tag = soup.find('title')
             name = title_tag.get_text().split('(')[0].strip() if title_tag else "Название не найдено"
-            description_tag = soup.find('meta', {'name': 'description'})
-            description = description_tag['content'] if description_tag else "Описание не найдено"
+            inn = soup.find('span', id="clip_inn").get_text(strip=True) if soup.find('span', id="clip_inn") else "ИНН не найдено"
+            ogrn = soup.find('span', id="clip_ogrn").get_text(strip=True) if soup.find('span', id="clip_ogrn") else "ОГРН не найдено"
+            registration_date = soup.find('dd', itemprop='foundingDate').get_text( strip=True) if soup.find('dd', itemprop='foundingDate') else "Дата регистрации не найдено"
+            leader = soup.find('div', {'class': 'chief'}).get_text(strip=True) if soup.find('div', {'class': 'chief'}) else "Руководитель не найдено"
+            legal_address = soup.find('address', itemprop='address').get_text(strip=True) if soup.find('span', itemprop='address') else "Юридический адрес не найдено"
 
         return {
             'company_name': name,
-            'description': description
+            'inn': inn,
+            'ogrn': ogrn,
+            'registration_date': registration_date,
+            'leader': leader,
+            'legal_address': legal_address,
         }
     else:
         return "Ошибка запроса"
