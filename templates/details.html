@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Details - Company Info by INN</title>
+</head>
+<body>
+    <h1>Информация о компании с ИНН {{ inn }}</h1>
+    {% if company_info %}
+        {% if company_info is string %}
+            <p>{{ company_info }}</p>
+        {% else %}
+            <p>Название компании: {{ company_info.get('company_name', 'Название не указано') }}</p>
+            <p>ИНН: {{ company_info.get('inn', 'ИНН не указан') }}</p>
+            <p>ОГРН: {{ company_info.get('ogrn', 'ОГРН не указан') }}</p>
+            <p>Дата регистрации: {{ company_info.get('registration_date', 'Дата регистрации не указана') }}</p>
+            <p>Руководитель: {{ company_info.get('leader', 'Руководитель не указан') }}</p>
+            <p>Юридический адрес: {{ company_info.get('legal_address', 'Юридический адрес не указан') }}</p>
+        {% endif %}
+    {% else %}
+        <p>Информация о компании не найдена.</p>
+    {% endif %}
+    <a href="/">Вернуться на главную страницу</a>
+</body>
+</html>
