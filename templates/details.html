@@ -3,6 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Details - Company Info by INN</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+        h1 { color: #333; }
+        p { color: #666; }
+        a { color: blue; }
+        .info { margin-bottom: 10px; }
+        .info span { font-weight: bold; }
+    </style>
 </head>
 <body>
     <h1>Информация о компании с ИНН {{ inn }}</h1>
@@ -10,13 +18,27 @@
         {% if company_info is string %}
             <p>{{ company_info }}</p>
         {% else %}
-           <p>Название компании: {{ company_info.get('company_name', 'Название не указано') }}</p>
-            <p>ИНН/КПП: {{ company_info.get('inn_kpp', 'ИНН/КПП не указан') }}</p>
-            <p>ОГРН: {{ company_info.get('ogrn', 'ОГРН не указан') }}</p>
-            <p>Дата регистрации: {{ company_info.get('registration_date', 'Дата регистрации не указана') }}</p>
-            <p>Руководитель: {{ company_info.get('leader_name', 'Руководитель не указан') }}</p>
-            <p>Юридический адрес: {{ company_info.get('legal_address', 'Юридический адрес не указан') }}</p>
-            <p>Уставной капитал: {{ company_info.get('authorized_capital', 'Уставной капитал не указан') }}</p>
+            <div class="info">
+                <span>Название компании:</span> {{ company_info.get('company_name', 'Название не указано') }}
+            </div>
+            <div class="info">
+                <span>ИНН/КПП:</span> {{ company_info.get('inn_kpp', 'ИНН/КПП не указан') }}
+            </div>
+            <div class="info">
+                <span>ОГРН:</span> {{ company_info.get('ogrn', 'ОГРН не указан') }}
+            </div>
+            <div class="info">
+                <span>Дата регистрации:</span> {{ company_info.get('registration_date', 'Дата регистрации не указана') }}
+            </div>
+            <div class="info">
+                <span>Руководитель:</span> {{ company_info.get('leader_name', 'Руководитель не указан') }}
+            </div>
+            <div class="info">
+                <span>Юридический адрес:</span> {{ company_info.get('legal_address', 'Юридический адрес не указан') }}
+            </div>
+            <div class="info">
+                <span>Уставной капитал:</span> {{ company_info.get('authorized_capital', 'Уставной капитал не указан') }}
+            </div>
         {% endif %}
     {% else %}
         <p>Информация о компании не найдена.</p>
