@@ -3,14 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Details - Company Info by INN</title>
-    <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
-        h1 { color: #333; }
-        p { color: #666; }
-        a { color: blue; }
-        .info { margin-bottom: 10px; }
-        .info span { font-weight: bold; }
-    </style>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
 </head>
 <body>
     <h1>Информация о компании с ИНН {{ inn }}</h1>
@@ -43,6 +36,8 @@
     {% else %}
         <p>Информация о компании не найдена.</p>
     {% endif %}
-    <a href="{{ url_for('index') }}">Вернуться на главную страницу</a>
+    <form action="{{ url_for('index') }}" method="get">
+    <button type="submit" class="button">Вернуться на главную страницу</button>
+</form>
 </body>
 </html>
